@@ -2,8 +2,8 @@
 
 
 
- output "TESTME" {
-    value = "TEST 1234"
+output "TESTME" {
+  value = "TEST 1234"
 }
 
 
