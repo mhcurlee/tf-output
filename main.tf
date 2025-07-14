@@ -13,7 +13,7 @@ resource "aws_instance" "example1" {
  subnet_id     = "subnet-06e8cc9ff8751a5a1"
 
  tags = {
-   name = "example-1}"
+   Name = "example-1"
  }
 }
 
@@ -23,7 +23,7 @@ resource "aws_instance" "example2" {
  subnet_id     = "subnet-06e8cc9ff8751a5a1"
 
  tags = {
-   name = "example-2}"
+   Name = "example-2"
  }
 }
 
