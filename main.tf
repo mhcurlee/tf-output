@@ -3,7 +3,7 @@
 
 
 output "TESTME" {
-  value = "TEST 1"
+  value = "TEST 2"
 }
 
 
