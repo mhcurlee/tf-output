@@ -1,0 +1,78 @@
+# Using Python, FastAPI, SQLAlchemy, and Pydantic, design a RESTful API to manage network security groups, hosts, protocols, profiles, and rules. The API should support CRUD operations for each entity and enforce relationships between them.
+
+# Database schema definition in YAML format
+
+tables:
+  groups:
+    columns:
+      id: { type: integer, primary_key: true, auto_increment: true }
+      name: { type: string, length: 50, unique: true, required: true }
+      description: { type: string, length: 255, required: false }
+      env: { type: string, length: 60, required: true }
+      type: { type: string, length: 60, required: true }
+      direction: {type: string, length: 10, required: true }
+      appcode: { type: string, length: 20, required: true } 
+  hosts:
+    columns:
+      id: { type: integer, primary_key: true, auto_increment: true }
+      name: { type: string, length: 255, unique: true, required: true }
+  protocols:
+    columns:
+      id: { type: integer, primary_key: true, auto_increment: true }
+      name: { type: string, length: 60, unique: true, required: true }
+  profiles:
+    columns:
+      id: { type: integer, primary_key: true, auto_increment: true }
+      name: { type: string, length: 60, unique: true, required: true }
+      group: { type: integer, foreign_key: groups.id, required: true  }
+      host: { type: integer, foreign_key: hosts.id, required: true  } 
+      protocol: { type: integer, foreign_key: protocols.id, required: true  }
+      start_port: { type: integer, required: true } 
+      end_port: { type: integer, required: true }      
+  rules:
+    columns:
+      id: { type: integer, primary_key: true, auto_increment: true }
+      description: { type: string, length: 255, required: false } 
+      source: { type: integer, foreign_key: groups.id, required: true } 
+      destination: { type: integer, foreign_key: groups.id, required: true } 
+      
+
+
+  # Required API endpoints:
+  /groups:
+    GET /groups: List all groups
+    POST /groups: Create a new group
+    GET /groups/{id}: Retrieve a specific group
+    GET /groups/by-name/{name}: Retrieve group by name
+    GET /groups/groups-by-appcode/{appcode}: Retrieve groups by appcode 
+    PUT /groups/{id}: Update a specific group
+    DELETE /groups/{id}: Delete a specific group
+
+  /hosts:
+    GET /hosts: List all hosts
+    POST /hosts: Create a new host
+    GET /hosts/{id}: Retrieve a specific host
+    PUT /hosts/{id}: Update a specific host
+    DELETE /hosts/{id}: Delete a specific host
+
+  /protocols:
+    GET /protocols: List all protocols
+    POST /protocols: Create a new protocol
+    DELETE /protocols/{id}: Delete a specific protocol
+
+  /profiles:
+    GET /profiles: List all profiles
+    POST /profiles: Create a new profile
+    GET /profiles/{id}: Retrieve a specific profile
+    PUT /profiles/{id}: Update a specific profile
+    DELETE /profiles/{id}: Delete a specific profile
+
+  /rules:
+    GET /rules: List all rules
+    POST /rules: Create a new rule
+    GET /rules/{id}: Retrieve a specific rule
+    PUT /rules/{id}: Update a specific rule
+    DELETE /rules/{id}: Delete a specific rule  
+
+
+
